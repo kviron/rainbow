@@ -13,8 +13,6 @@ RUN npm install
 # Копируем остальные файлы проекта
 COPY . .
 
-ADD ./node_modules /usr/src/app/node_modules
-
 # Запускаем dev-сервер
 CMD ["npm", "run", "dev"]
 
