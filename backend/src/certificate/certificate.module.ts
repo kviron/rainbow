@@ -5,6 +5,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Certificate } from './entities/certificate.entity';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { APP_GUARD } from '@nestjs/core';
+import { RolesGuard } from '../auth/roles.guard';
 
 @Module({
   imports: [
@@ -19,6 +21,12 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
     }),
   ],
   controllers: [CertificateController],
-  providers: [CertificateService],
+  providers: [
+    CertificateService,
+    {
+      provide: APP_GUARD,
+      useClass: RolesGuard,
+    },
+  ],
 })
 export class CertificateModule {}

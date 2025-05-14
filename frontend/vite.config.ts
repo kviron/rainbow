@@ -4,8 +4,15 @@ import react from '@vitejs/plugin-react-swc'
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
+  resolve: {
+    alias: [{ find: '@', replacement: '/src' }],
+  },
+  define: {
+    __IS_DEV__: JSON.stringify(true),
+    __API__: JSON.stringify('http://localhost:3001'),
+    __PROJECT__: JSON.stringify('frontend'),
+  },
   server: {
-    publicPath: './public',
     port: 3000,
     host: '0.0.0.0',
     strictPort: true,

@@ -6,6 +6,8 @@ import { User } from './entities/user.entity';
 import { Repository } from 'typeorm';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
+import { UserRole } from '../auth/role.enum';
+import { Request } from 'express';
 
 @Injectable()
 export class UserService {
@@ -29,6 +31,7 @@ export class UserService {
     const user = await this.userRepository.save({
       ...createUserDto,
       password: hash,
+      roles: [UserRole.User],
     });
 
     const token = this.jwtService.sign({
@@ -38,8 +41,17 @@ export class UserService {
     return { user, token };
   }
 
-  findAll() {
-    return `This action returns all user`;
+  async getCurrentUser(req: Request) {
+    // @ts-ignore
+    const userId: number = req.user?.id;
+
+    const currentUser = await this.userRepository.findOne({
+      where: { id: userId },
+    });
+
+    if (currentUser) return currentUser;
+
+    throw new BadRequestException('Пользователь не найден');
   }
 
   async findOne(id: number) {

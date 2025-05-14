@@ -1,25 +1,28 @@
 services:
     db:
-      image: postgres:latest
+      image: mysql:latest
       restart: always
       environment:
-        POSTGRES_USER: ${DB_USER}
-        POSTGRES_PASSWORD: ${DB_PASSWORD}
-        POSTGRES_DB: ${DB_NAME}
+        MYSQL_USER: ${DB_USER}
+        MYSQL_PASSWORD: ${DB_PASSWORD}
+        MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+        MYSQL_DATABASE: ${DB_NAME}
       ports:
-        - ${DB_PORT}:5432
+        - ${DB_PORT}:3306
       volumes:
-        - postgres_data:/var/lib/postgresql/data
+        - ./dbdata:/var/lib/mysql/
 
-    postgres_admin:
-      image: dpage/pgadmin4
+    adminer:
+      image: adminer
+      restart: unless-stopped
+      environment:
+        ADMINER_DEFAULT_DB_DRIVER: mysql
+        ADMINER_DEFAULT_DB_HOST: db:3306
+        ADMINER_DEFAULT_DB_NAME: ${DB_NAME}
       depends_on:
         - db
-      environment:
-        PGADMIN_DEFAULT_EMAIL: admin@admin.ru
-        PGADMIN_DEFAULT_PASSWORD: ${DB_PASSWORD}
       ports:
-        - 5050:80
+        - 5050:8080
 
     backend:
       build:
@@ -47,9 +50,10 @@ services:
         - .env
       depends_on:
         - db
+        - backend
       volumes:
         - ./frontend:/usr/src/app
         - /usr/src/app/node_modules/
 
 volumes:
-  postgres_data:
+  dbdata:
