@@ -1,3 +1,3 @@
 export * from './model/user.store';
 export * from './model/user.service';
-export type * from './model/user.types';
+export * from './model/user.types';

@@ -1,17 +1,15 @@
 import {
   Column,
   Entity,
-  Generated,
   JoinColumn,
   ManyToOne,
   PrimaryGeneratedColumn,
-  Unique,
 } from 'typeorm';
 import { EntityBase } from '../../utils';
 import { User } from '../../user/entities/user.entity';
 import { ApiProperty } from '@nestjs/swagger';
 
-export enum ECertificateStatus {
+export enum CertificateStatusEnum {
   NotPaid = 'notPaid',
   Active = 'active',
   Completed = 'completed',
@@ -65,15 +63,15 @@ export class Certificate extends EntityBase {
 
   @Column({
     type: 'enum',
-    enum: ECertificateStatus,
-    default: ECertificateStatus.NotPaid,
+    enum: CertificateStatusEnum,
+    default: CertificateStatusEnum.NotPaid,
   })
   @ApiProperty({
-    example: ECertificateStatus.Completed,
+    example: CertificateStatusEnum.Completed,
     description: 'Статус сертификата',
-    enum: ECertificateStatus,
+    enum: CertificateStatusEnum,
     enumName: 'CertificateStatusEnum',
-    type: 'string',
+    type: CertificateStatusEnum,
   })
-  status: ECertificateStatus;
+  status: CertificateStatusEnum;
 }

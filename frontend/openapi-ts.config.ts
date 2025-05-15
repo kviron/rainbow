@@ -3,7 +3,7 @@ import { defineConfig } from '@hey-api/openapi-ts';
 export default defineConfig({
   input: 'http://host.docker.internal:3001/api-json',
   output: {
-    path: './src/client',
+    path: './src/shared/generated',
     case: 'camelCase',
     indexFile: true
   },
@@ -19,7 +19,7 @@ export default defineConfig({
     },
     {
       name: "@hey-api/typescript",
-      enums: "javascript",
+      enums: "typescript",
       exportInlineEnums: true,
       enumsCase: 'PascalCase',
       exportFromIndex: true,

@@ -27,6 +27,7 @@
     "@eslint/js": "^9.25.0",
     "@hey-api/client-fetch": "^0.10.0",
     "@hey-api/openapi-ts": "^0.67.3",
+    "@redux-devtools/extension": "^3.3.0",
     "@types/node": "^22.15.17",
     "@types/react": "^19.1.2",
     "@types/react-dom": "^19.1.2",

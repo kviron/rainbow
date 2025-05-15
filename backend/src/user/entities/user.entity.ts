@@ -4,6 +4,7 @@ import { Certificate } from '../../certificate/entities/certificate.entity';
 import { ApiProperty } from '@nestjs/swagger';
 import { UserRole } from '../../auth/role.enum';
 import { UserStatus } from '../user.enums';
+import { PropertyUserRole } from '../swager/propertyes';
 
 @Entity()
 export class User extends EntityBase {
@@ -36,14 +37,7 @@ export class User extends EntityBase {
     enum: UserRole,
     default: [UserRole.User],
   })
-  @ApiProperty({
-    example: [UserRole.User],
-    description: 'Роли пользователя',
-    enum: UserRole,
-    enumName: 'UserRole',
-    type: () => [UserRole],
-    isArray: true,
-  })
+  @ApiProperty(PropertyUserRole)
   roles: UserRole[];
 
   @Column({

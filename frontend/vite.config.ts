@@ -9,7 +9,7 @@ export default defineConfig({
   },
   define: {
     __IS_DEV__: JSON.stringify(true),
-    __API__: JSON.stringify('http://localhost:3001'),
+    __API__: JSON.stringify('http://host.docker.internal:3001/'),
     __PROJECT__: JSON.stringify('frontend'),
   },
   server: {

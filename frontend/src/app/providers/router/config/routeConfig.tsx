@@ -3,37 +3,45 @@ import { UserRole } from '@/entities/User';
 import { ForbiddenPage } from '@/pages/ForbiddenPage';
 import { NotFoundPage } from '@/pages/NotFoundPage';
 import {
-    AppRoutes,
-    getRouteForbidden,
-    getRouteCertificates,
-    getRouteMain,
-    getRouteSettings,
+  AppRoutes,
+  getRouteForbidden,
+  getRouteCertificates,
+  getRouteMain,
+  getRouteSettings, getRouteAuth,
 } from '@/shared/const/router';
-import { AppRoutesProps } from '@/shared/types/router';
-import { SettingsPage } from '@/pages/SettingsPage';
+import { type AppRoutesProps } from '@/shared/types/router';
+import { AuthPage } from '@/pages/AuthPage';
 
 export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
-    [AppRoutes.MAIN]: {
-        path: getRouteMain(),
-        element: <MainPage />,
-    },
-    [AppRoutes.SETTINGS]: {
-        path: getRouteSettings(),
-        element: <SettingsPage />,
-    },
-    [AppRoutes.CERTIFICATES]: {
-        path: getRouteCertificates(),
-        element: <AdminPanelPage />,
-        authOnly: true,
-        roles: [UserRole.MANAGER, UserRole.ADMIN],
-    },
-    [AppRoutes.FORBIDDEN]: {
-        path: getRouteForbidden(),
-        element: <ForbiddenPage />,
-    },
-    // last
-    [AppRoutes.NOT_FOUND]: {
-        path: '*',
-        element: <NotFoundPage />,
-    },
+  [AppRoutes.Auth]: {
+    path: getRouteAuth(),
+    element: <AuthPage />,
+  },
+  [AppRoutes.MAIN]: {
+    path: getRouteMain(),
+    element: <MainPage />,
+    authOnly: true,
+    roles: [UserRole.Admin],
+  },
+  [AppRoutes.SETTINGS]: {
+    path: getRouteSettings(),
+    element: <></>,
+    authOnly: true,
+    roles: [UserRole.Admin],
+  },
+  [AppRoutes.CERTIFICATES]: {
+    path: getRouteCertificates(),
+    element: <></>,
+    authOnly: true,
+    roles: [UserRole.Admin],
+  },
+  [AppRoutes.FORBIDDEN]: {
+    path: getRouteForbidden(),
+    element: <ForbiddenPage />,
+  },
+  // last
+  [AppRoutes.NOT_FOUND]: {
+    path: '*',
+    element: <NotFoundPage />,
+  },
 };

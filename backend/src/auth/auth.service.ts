@@ -33,7 +33,7 @@ export class AuthService {
       id: payload.id,
       email: payload.email,
       roles: user.roles,
-      access_token: this.jwtService.sign(payload),
+      accessToken: this.jwtService.sign(payload),
     };
   }
 }

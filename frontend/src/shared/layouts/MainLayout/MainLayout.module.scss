@@ -1,0 +1,12 @@
+.content {
+  margin: 0;
+  padding: 24px;
+  min-height: calc(100vh - 112px);
+}
+
+.contentCenter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}

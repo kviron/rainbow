@@ -1,9 +1,17 @@
-import type { CreateUserDto, UpdateUserDto, User as UserApi } from '@/client';
+import type { CreateUserDto, UpdateUserDto, User as UserApi } from '@/shared/generated';
+
+export { UserRole } from '@/shared/generated'
 
 export type User = UserApi
 
 export type UserServiceDTO = {
   create: CreateUserDto
   update: UpdateUserDto
-  remove: string
+  getCurrent: null,
+  findOne: {
+    id: string
+  }
+  remove: {
+    id: string
+  }
 }

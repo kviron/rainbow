@@ -1,5 +1,6 @@
 import { QueryClient } from '@tanstack/react-query'
-import { client } from '@/client/client.gen';
+import { client } from '@/shared/generated/client.gen.ts';
+import { USER_LOCALSTORAGE_KEY } from '@/shared/const';
 
 export const queryClient = new QueryClient({
   defaultOptions: {
@@ -10,11 +11,9 @@ export const queryClient = new QueryClient({
 })
 
 client.setConfig({
-  // set default base url for requests
-  baseURL: 'http://host.docker.internal:3001/api',
-  // set default headers for requests
+  baseURL: __API__,
   headers: {
-    Authorization: 'Bearer <token_from_service_client>',
+    Authorization: `Bearer ${localStorage.getItem(USER_LOCALSTORAGE_KEY)}`,
   },
 });
 

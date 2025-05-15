@@ -1,2 +1,21 @@
 @import "reset";
 @import "variables";
+
+
+
+input {
+  &:-webkit-autofill:disabled,
+  &:-webkit-autofill:read-only,
+  &:-webkit-autofill[readonly],
+  &:-webkit-autofill,
+  &:-webkit-autofill:hover,
+  &:-webkit-autofill:focus,
+  &:-webkit-autofill:active {
+    -webkit-box-shadow: none !important;
+    -webkit-text-fill-color: #fff !important;
+    border: transparent !important;
+    background-color: var(--ant-input-active-bg);
+    transition: background-color 5000s ease-in-out 0s;
+  }
+}
+

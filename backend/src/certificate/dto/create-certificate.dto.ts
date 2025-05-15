@@ -1,5 +1,5 @@
 import { IsNotEmpty, IsOptional } from 'class-validator';
-import { ECertificateStatus } from '../entities/certificate.entity';
+import { CertificateStatusEnum } from '../entities/certificate.entity';
 import { ApiProperty, ApiSchema } from '@nestjs/swagger';
 
 @ApiSchema({ name: 'CreateCertificateRequest' })
@@ -45,10 +45,11 @@ export class CreateCertificateDto {
 
   @IsOptional()
   @ApiProperty({
-    example: ECertificateStatus.Completed,
+    example: CertificateStatusEnum.Completed,
     description: 'Статус сертификата',
-    enum: ECertificateStatus,
+    enum: CertificateStatusEnum,
+    enumName: 'CertificateStatusEnum',
     required: false,
   })
-  status?: ECertificateStatus;
+  status?: CertificateStatusEnum;
 }

@@ -43,13 +43,14 @@ export class UserController {
   @ApiResponse({
     status: 200,
     description: 'Получить данные текущего пользователя',
+    type: User,
   })
   getCurrentUser(@Req() req: Request) {
     return this.userService.getCurrentUser(req);
   }
 
   @Get(':id')
-  @ApiOperation({ operationId: 'user-get' })
+  @ApiOperation({ operationId: 'user-findOne' })
   @ApiResponse({
     status: 200,
     description: 'The found record',
