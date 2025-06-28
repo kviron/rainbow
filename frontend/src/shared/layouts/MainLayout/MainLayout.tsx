@@ -34,15 +34,13 @@ export const MainLayout = memo((props: MainLayoutProps) => {
 
 
       <Layout>
-        <Render when={showSidebar}>
-          <Sider width={250} style={{
-            borderRight: '1px solid #f0f0f0',
-          }}>
+        <Render when={showSidebar} mode={'flex'}>
+          <Sider>
             {sidebar}
           </Sider>
         </Render>
 
-        <Layout style={{ padding: '24px' }}>
+        <Layout>
           <Content className={clsx(styles.content, {[styles.contentCenter]: contentCenter})}>
             {content}
           </Content>

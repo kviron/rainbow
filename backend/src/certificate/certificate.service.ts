@@ -4,6 +4,8 @@ import { UpdateCertificateDto } from './dto/update-certificate.dto';
 import { Repository } from 'typeorm';
 import { Certificate } from './entities/certificate.entity';
 import { InjectRepository } from '@nestjs/typeorm';
+import { PaginationResponseDto } from '../common/dto/pagination-response.dto';
+import { PaginationQueryDto } from '../common/dto/pagination-query.dto';
 
 @Injectable()
 export class CertificateService {
@@ -22,8 +24,17 @@ export class CertificateService {
     return await this.certificateRepository.save(newCertificate);
   }
 
-  async findAll() {
-    return await this.certificateRepository.find();
+  async findAll(
+    params: PaginationQueryDto,
+  ): Promise<PaginationResponseDto<Certificate>> {
+    const [data, total] = await this.certificateRepository.findAndCount();
+
+    return {
+      limit: 2,
+      results: data,
+      total,
+      offset: 0,
+    };
   }
 
   async findOne(id: number) {

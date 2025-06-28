@@ -1,6 +1,8 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { IsOptional } from 'class-validator';
 
-export class PaginationQuery {
+export class PaginationQueryDto {
+  @IsOptional()
   @ApiProperty({
     minimum: 0,
     maximum: 10000,
@@ -10,32 +12,19 @@ export class PaginationQuery {
     format: 'int32',
     default: 0,
     example: 123,
+    required: false,
   })
-  page: number;
+  page?: number;
 
   @ApiProperty({
     name: '_sortBy',
     nullable: true,
     example: ['sort1', 'sort2'],
   })
-  sortBy: string[];
+  sortBy?: string[];
 
   @ApiProperty()
-  limit: number;
-
-  @ApiProperty({
-    type: 'object',
-    properties: {
-      name: {
-        type: 'string',
-      },
-      age: {
-        type: 'number',
-      },
-    },
-    additionalProperties: true,
-  })
-  filter: Record<string, any>;
+  limit?: number;
 
   static _OPENAPI_METADATA_FACTORY() {
     return {

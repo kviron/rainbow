@@ -8,6 +8,7 @@ import {
   Delete,
   UseGuards,
   Req,
+  Query,
 } from '@nestjs/common';
 import { CertificateService } from './certificate.service';
 import { CreateCertificateDto } from './dto/create-certificate.dto';
@@ -26,13 +27,14 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { Certificate } from './entities/certificate.entity';
-import { PaginatedDto } from '../common/dto/paginated.dto';
+import { PaginationResponseDto } from '../common/dto/pagination-response.dto';
 import { ApiPaginatedResponse } from '../utils';
+import { PaginationQueryDto } from '../common/dto/pagination-query.dto';
 
 @Controller('certificates')
 @ApiBearerAuth()
+@ApiExtraModels(PaginationResponseDto)
 @ApiTags('certificates')
-@ApiExtraModels(PaginatedDto)
 export class CertificateController {
   constructor(private readonly certificateService: CertificateService) {}
 
@@ -52,9 +54,11 @@ export class CertificateController {
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(UserRole.Admin)
   @ApiOperation({ operationId: 'certificate-findAll' })
-  @ApiPaginatedResponse(PaginatedDto)
-  findAll(@Req() req) {
-    return this.certificateService.findAll();
+  @ApiPaginatedResponse(Certificate)
+  findAll(
+    @Query() paginationQuery: PaginationQueryDto,
+  ): Promise<PaginationResponseDto<Certificate>> {
+    return this.certificateService.findAll(paginationQuery);
   }
 
   @Get(':id')

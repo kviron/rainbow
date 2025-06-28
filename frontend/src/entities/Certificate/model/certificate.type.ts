@@ -1,24 +1,22 @@
-import { BaseService } from "@/shared/classes";
-import { certificateFindAll, certificateFindOne, certificateUpdate } from '@/shared/generated';
+import {
+  type Certificate as CertificateGen,
+  type CertificateUpdateResponses as CertificateUpdateResponsesGen,
+  type UpdateCertificateRequest as UpdateCertificateRequestGen,
+  type CreateCertificateRequest as CreateCertificateRequestGen,
+} from '@/shared/generated';
 
-class CertificateServiceClass implements BaseService {
-  findAll = () => {
-    return certificateFindAll()
-  }
+export type Certificate = CertificateGen
 
-  findOne = (id: string) => {
-    return certificateFindOne({
-      path: {id}
-    })
-  }
+export type CertificateUpdateResponses = CertificateUpdateResponsesGen;
 
-  update = (id: string) => {
-    return certificateUpdate({
-      path: {id},
-      body: {
-      }
-    })
-  }
+export type UpdateCertificateRequest = UpdateCertificateRequestGen
+
+export type CertificateDTO = {
+  findOne: { id: string }
+  remove: { id: string }
+  update: { id: string, data: UpdateCertificateRequest }
+  create: { data: CreateCertificateRequestGen }
 }
 
-export const CertificateService = new CertificateServiceClass();
+
+export type CertificateDataTableType = Certificate

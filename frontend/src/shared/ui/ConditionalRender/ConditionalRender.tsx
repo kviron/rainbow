@@ -4,7 +4,7 @@ interface ConditionalRenderProps {
   when: boolean;
   children: ReactNode;
   fallback?: ReactNode;
-  mode?: 'display' | 'visibility' | 'mount';
+  mode?: 'display' | 'visibility' | 'mount' | 'flex';
 }
 
 /**
@@ -35,11 +35,17 @@ const Render: FC<ConditionalRenderProps> =
             {when ? children : fallback}
           </div>
         );
+      case 'flex':
+        return (
+          <div style={{ display: when ? 'flex' : 'none' }}>
+            {when ? children : fallback}
+          </div>
+        );
 
       case 'display':
       default:
         return (
-          <div style={{ display: when ? 'block' : 'none' }}>
+          <div style={{ display: when ? undefined : 'none' }}>
             {when ? children : fallback}
           </div>
         );

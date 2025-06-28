@@ -1,5 +1,5 @@
 import type { UserRole } from '@/entities/User';
-import type { RouteProps } from 'react-router-dom';
+import type { RouteProps } from 'react-router';
 
 export type AppRoutesProps = RouteProps & {
     authOnly?: boolean;

@@ -1,36 +1,64 @@
 import {
+  AppRouteByPathPattern,
+  AppRoutes,
   getRouteCertificates,
-  getRouteMain,
+  getRouteMain, getRouteSettings,
 } from '@/shared/const/router';
-import { useUserStore } from '@/entities/User';
-import type { SidebarItemType } from './Sidebar.types';
+import type { MenuItemType } from './Sidebar.types';
 import {
-  MailOutlined
+  HomeOutlined,
+  SettingOutlined,
+  SnippetsOutlined
 } from '@ant-design/icons';
+import { useNavigate, useLocation } from 'react-router';
+import { useSidebarStore } from './Sidebar.store.tsx';
+import { useAuthStore } from '@/entities/Auth';
 
+export const useSidebar = () => {
+  const { user } = useAuthStore();
+  const navigate = useNavigate();
+  const location = useLocation();
 
-export const useSidebarItems = () => {
-  const { authData } = useUserStore()
+  const { menuCollapsed, toggleMenuCollapsed, } = useSidebarStore()
 
-  const sidebarItemsList: SidebarItemType[] = [
+  const activeItem = AppRouteByPathPattern[location.pathname]
+
+  const menuItemsList: MenuItemType[] = [
     {
-      key: '1',
+      key: AppRoutes.MAIN,
       label: 'Главная',
-      icon: <MailOutlined />,
+      icon: <HomeOutlined />,
       path: getRouteMain(),
+      onClick: () => {
+        navigate(getRouteMain())
+      }
     },
   ];
 
-  if (authData) {
-    sidebarItemsList.push(
+  if (user) {
+    menuItemsList.push(
       {
+        key: AppRoutes.CERTIFICATES,
         path: getRouteCertificates(),
-        Icon: '',
-        text: 'Сертификаты',
+        icon: <SnippetsOutlined />,
+        label: 'Сертификаты',
         authOnly: true,
+        onClick: () => {
+          navigate(getRouteCertificates())
+        }
+      },
+      {
+        key: AppRoutes.SETTINGS,
+        path: getRouteSettings(),
+        icon: <SettingOutlined />,
+        label: 'Настройки',
+        authOnly: true,
+        onClick: () => {
+          navigate(getRouteSettings())
+        }
       },
     );
   }
 
-  return sidebarItemsList;
+  return { menuItemsList, activeItem, menuCollapsed, toggleMenuCollapsed };
 };

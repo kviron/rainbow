@@ -1,6 +1,6 @@
 import { IsNotEmpty, IsOptional } from 'class-validator';
-import { CertificateStatusEnum } from '../entities/certificate.entity';
 import { ApiProperty, ApiSchema } from '@nestjs/swagger';
+import { CertificateStatusEnum } from '../enums';
 
 @ApiSchema({ name: 'CreateCertificateRequest' })
 export class CreateCertificateDto {

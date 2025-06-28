@@ -2,7 +2,8 @@ import { LockOutlined, MailOutlined  } from '@ant-design/icons';
 import { Button, Form, Input } from 'antd';
 import styles from "./LoginForm.module.scss"
 import { Logo } from '@/shared/ui/Logo';
-import type { AuthServiceDto } from '@/entities/Auth/model/Auth.types.tsx';
+import type { AuthServiceDto } from '../../model/Auth.types.tsx';
+import { Alert } from 'antd';
 
 export interface LoginFormProps {
   className?: string;
@@ -26,6 +27,9 @@ const LoginForm =  (props: LoginFormProps) => {
         onFinish={onFinish}
         size={'large'}
       >
+        <Form.Item>
+          <Alert message="Error Text" type="error" />
+        </Form.Item>
         <Form.Item
           name="email"
           rules={[{ required: true, message: 'Пожалуйста введите email!' }]}

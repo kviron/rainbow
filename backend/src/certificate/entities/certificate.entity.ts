@@ -8,13 +8,7 @@ import {
 import { EntityBase } from '../../utils';
 import { User } from '../../user/entities/user.entity';
 import { ApiProperty } from '@nestjs/swagger';
-
-export enum CertificateStatusEnum {
-  NotPaid = 'notPaid',
-  Active = 'active',
-  Completed = 'completed',
-  Rejected = 'rejected',
-}
+import { CertificateStatusEnum } from '../enums';
 
 @Entity()
 export class Certificate extends EntityBase {

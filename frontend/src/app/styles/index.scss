@@ -1,7 +1,5 @@
-@import "reset";
-@import "variables";
-
-
+@use "reset";
+@use "variables";
 
 input {
   &:-webkit-autofill:disabled,

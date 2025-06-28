@@ -11,6 +11,7 @@ import {
 } from '@/shared/const/router';
 import { type AppRoutesProps } from '@/shared/types/router';
 import { AuthPage } from '@/pages/AuthPage';
+import { CertificatePage } from '@/pages/CertificatePage';
 
 export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
   [AppRoutes.Auth]: {
@@ -31,7 +32,7 @@ export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
   },
   [AppRoutes.CERTIFICATES]: {
     path: getRouteCertificates(),
-    element: <></>,
+    element: <CertificatePage/>,
     authOnly: true,
     roles: [UserRole.Admin],
   },

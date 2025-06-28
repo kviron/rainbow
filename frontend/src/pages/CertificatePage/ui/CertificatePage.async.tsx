@@ -1,13 +1,3 @@
-import { Page } from '@/widgets/Page';
+import { lazy } from 'react';
 
-
-const CertificatePage = () => {
-
-  return (
-    <Page data-testid="CertificatePage">
-      Страница сертификатов
-    </Page>
-  )
-}
-
-export default CertificatePage;
+export const CertificatePageAsync = lazy(() => import('./CertificatePage.tsx'));

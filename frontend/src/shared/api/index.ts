@@ -1,6 +1,6 @@
 import { QueryClient } from '@tanstack/react-query'
 import { client } from '@/shared/generated/client.gen.ts';
-import { USER_LOCALSTORAGE_KEY } from '@/shared/const';
+import { AUTH_LOCALSTORAGE_KEY } from '@/shared/const';
 
 export const queryClient = new QueryClient({
   defaultOptions: {
@@ -10,10 +10,15 @@ export const queryClient = new QueryClient({
   },
 })
 
+const getToken = () => {
+  const authStore = localStorage.getItem(AUTH_LOCALSTORAGE_KEY)
+  return authStore ? JSON.parse(authStore)?.state?.token : null;
+}
+
 client.setConfig({
   baseURL: __API__,
   headers: {
-    Authorization: `Bearer ${localStorage.getItem(USER_LOCALSTORAGE_KEY)}`,
+    Authorization: `Bearer ${getToken()}`,
   },
 });
 
