@@ -1,1 +1,3 @@
-export * from "./ui/CertificateCreateForm"
+import {CertificateCreateFormAsync} from "./ui/CertificateCreateForm.async"
+
+export {CertificateCreateFormAsync as CertificateCreateForm}

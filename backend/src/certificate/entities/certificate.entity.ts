@@ -46,15 +46,6 @@ export class Certificate extends EntityBase {
   })
   service: string;
 
-  @ManyToOne(() => User, (user) => user.certificates, {})
-  @JoinColumn({ name: 'user_id' })
-  @ApiProperty({
-    example: '23',
-    description: 'Id пользователя выдавшего сертифика',
-    type: () => User,
-  })
-  userCreate: User;
-
   @Column({
     type: 'enum',
     enum: CertificateStatusEnum,
