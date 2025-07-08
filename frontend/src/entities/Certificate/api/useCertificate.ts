@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import {
   type CertificateCreateData,
   certificateCreateMutation,
@@ -37,14 +37,13 @@ export const useUpdateCertificate = (query: CertificateUpdateData) => {
 };
 
 export const useCreateCertificate = (query: CertificateCreateData) => {
-  const { isPending, error, data } = useQuery({
-    queryKey: ['certificate', 'create'],
+  return useMutation({
     ...certificateCreateMutation(query),
   });
+};
 
-  return {
-    isPending,
-    error,
-    data,
-  };
+export const useCreateCertificateMutation = () => {
+  return useMutation({
+    ...certificateCreateMutation()
+  });
 };

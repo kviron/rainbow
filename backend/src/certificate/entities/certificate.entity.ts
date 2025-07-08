@@ -4,58 +4,58 @@ import {
   JoinColumn,
   ManyToOne,
   PrimaryGeneratedColumn,
-} from 'typeorm';
-import { EntityBase } from '../../utils';
-import { User } from '../../user/entities/user.entity';
-import { ApiProperty } from '@nestjs/swagger';
-import { CertificateStatusEnum } from '../enums';
+} from "typeorm";
+import { EntityBase } from "../../utils";
+import { User } from "../../user/entities/user.entity";
+import { ApiProperty } from "@nestjs/swagger";
+import { CertificateStatusEnum } from "../enums";
 
 @Entity()
 export class Certificate extends EntityBase {
-  @PrimaryGeneratedColumn({ name: 'certificate_id' })
-  @ApiProperty({ example: 1, description: 'Id certificate' })
+  @PrimaryGeneratedColumn({ name: "certificate_id" })
+  @ApiProperty({ example: 1, description: "Id certificate" })
   id: number;
 
-  @Column({ unique: true, generated: 'uuid', length: 8 })
-  @ApiProperty({ example: 'scascascas2', description: 'Code certificate' })
+  @Column({ unique: true })
+  @ApiProperty({ example: "scascascas2", description: "Code certificate" })
   code: string;
 
   @Column()
-  @ApiProperty({ example: '2', description: 'Кол-во человек' })
+  @ApiProperty({ example: "2", description: "Кол-во человек" })
   countPersons: number;
 
   @Column({ nullable: true })
   @ApiProperty({
-    example: 'test@test.ru',
+    example: "test@test.ru",
     nullable: true,
-    description: 'Почта на которую отправить сертификат',
+    description: "Почта на которую отправить сертификат",
   })
   email: string;
 
   @Column()
   @ApiProperty({
-    example: '20.02.2020',
-    description: 'Дата выпуска сертификата',
+    example: "20.02.2020",
+    description: "Дата выпуска сертификата",
   })
   releaseDate: Date;
 
   @Column()
   @ApiProperty({
-    example: 'Прогулка на лошадях',
-    description: 'Текст услуги',
+    example: "Прогулка на лошадях",
+    description: "Текст услуги",
   })
   service: string;
 
   @Column({
-    type: 'enum',
+    type: "enum",
     enum: CertificateStatusEnum,
     default: CertificateStatusEnum.NotPaid,
   })
   @ApiProperty({
     example: CertificateStatusEnum.Completed,
-    description: 'Статус сертификата',
+    description: "Статус сертификата",
     enum: CertificateStatusEnum,
-    enumName: 'CertificateStatusEnum',
+    enumName: "CertificateStatusEnum",
     type: CertificateStatusEnum,
   })
   status: CertificateStatusEnum;

@@ -9,14 +9,14 @@ import {
   UseGuards,
   Req,
   Query,
-} from '@nestjs/common';
-import { CertificateService } from './certificate.service';
-import { CreateCertificateDto } from './dto/create-certificate.dto';
-import { UpdateCertificateDto } from './dto/update-certificate.dto';
-import { JwtAuthGuard } from '../auth/jwt-auth.guard';
-import { Roles } from '../auth/roles.decorator';
-import { UserRole } from '../auth/role.enum';
-import { RolesGuard } from '../auth/roles.guard';
+} from "@nestjs/common";
+import { CertificateService } from "./certificate.service";
+import { CreateCertificateDto } from "./dto/create-certificate.dto";
+import { UpdateCertificateDto } from "./dto/update-certificate.dto";
+import { JwtAuthGuard } from "../auth/jwt-auth.guard";
+import { Roles } from "../auth/roles.decorator";
+import { UserRole } from "../auth/role.enum";
+import { RolesGuard } from "../auth/roles.guard";
 import {
   ApiBearerAuth,
   ApiCreatedResponse,
@@ -25,25 +25,24 @@ import {
   ApiQuery,
   ApiResponse,
   ApiTags,
-} from '@nestjs/swagger';
-import { Certificate } from './entities/certificate.entity';
-import { PaginationResponseDto } from '../common/dto/pagination-response.dto';
-import { ApiPaginatedResponse } from '../utils';
-import { PaginationQueryDto } from '../common/dto/pagination-query.dto';
+} from "@nestjs/swagger";
+import { Certificate } from "./entities/certificate.entity";
+import { PaginationResponseDto } from "../common/dto/pagination-response.dto";
+import { ApiPaginatedResponse } from "../utils";
+import { PaginationQueryDto } from "../common/dto/pagination-query.dto";
 
-@Controller('certificates')
+@Controller("certificates")
 @ApiBearerAuth()
 @ApiExtraModels(PaginationResponseDto)
-@ApiTags('certificates')
+@ApiTags("certificates")
 export class CertificateController {
   constructor(private readonly certificateService: CertificateService) {}
 
   @Post()
-  @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(UserRole.Admin)
-  @ApiOperation({ operationId: 'certificate-create' })
+  @UseGuards(JwtAuthGuard)
+  @ApiOperation({ operationId: "certificate-create" })
   @ApiCreatedResponse({
-    description: 'The record has been successfully created.',
+    description: "The record has been successfully created.",
     type: Certificate,
   })
   create(@Body() createCertificateDto: CreateCertificateDto, @Req() req) {
@@ -53,7 +52,7 @@ export class CertificateController {
   @Get()
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(UserRole.Admin)
-  @ApiOperation({ operationId: 'certificate-findAll' })
+  @ApiOperation({ operationId: "certificate-findAll" })
   @ApiPaginatedResponse(Certificate)
   findAll(
     @Query() paginationQuery: PaginationQueryDto,
@@ -61,30 +60,30 @@ export class CertificateController {
     return this.certificateService.findAll(paginationQuery);
   }
 
-  @Get(':id')
+  @Get(":id")
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(UserRole.Admin)
-  @ApiOperation({ operationId: 'certificate-findOne' })
-  findOne(@Param('id') id: string) {
+  @ApiOperation({ operationId: "certificate-findOne" })
+  findOne(@Param("id") id: string) {
     return this.certificateService.findOne(+id);
   }
 
-  @Patch(':id')
+  @Patch(":id")
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(UserRole.Admin)
-  @ApiOperation({ operationId: 'certificate-update' })
+  @ApiOperation({ operationId: "certificate-update" })
   update(
-    @Param('id') id: string,
+    @Param("id") id: string,
     @Body() updateCertificateDto: UpdateCertificateDto,
   ) {
     return this.certificateService.update(+id, updateCertificateDto);
   }
 
-  @Delete(':id')
+  @Delete(":id")
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(UserRole.Admin)
-  @ApiOperation({ operationId: 'certificate-remove' })
-  remove(@Param('id') id: string) {
+  @ApiOperation({ operationId: "certificate-remove" })
+  remove(@Param("id") id: string) {
     return this.certificateService.remove(+id);
   }
 }

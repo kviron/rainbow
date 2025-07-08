@@ -23,9 +23,10 @@ const initialState: State = {
   inited: false,
 };
 
-const store: Store<CertificateCreateFormStore> = (set, getState) => ({
+const store: Store<CertificateCreateFormStore> = () => ({
   ...initialState,
-  submit: () => {},
+  submit: () => {
+  },
 });
 
 export const useCertificateCreateFormStore = create<CertificateCreateFormStore>()(
